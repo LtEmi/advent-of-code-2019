@@ -118,4 +118,4 @@ for (i = 0; i < modulesCount; i++) {
 	totalFuelRequirements = totalFuelRequirements + n;
 };
 
-document.getElementById("result1a").innerHTML = "The total amount of fuel required to power all modules is " + totalFuelRequirements + "."; //this should return 3178783
+document.getElementById("result1a").innerHTML = "The total amount of fuel required to power all modules is " + totalFuelRequirements + "."; 
