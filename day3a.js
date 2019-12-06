@@ -8,8 +8,8 @@ var D = "down";
 var firstWirePos = {x:0,y:0};
 var secondWirePos = {x:0,y:0};
 
-var firstWirePath = []; 
-var secondWirePath = []; 
+var firstWirePath = {}; 
+var secondWirePath = {}; 
 
 var firstWireAmount = [998,502,895,288,416,107,492,303,719,601,783,154,236,913,833,329,28,759,270,549,245,653,851,676,211,949,980,314,897,764,149,214,195,907,534,446,362,6,246,851,25,925,334,673,998,581,783,912,53,694,441,411,908,756,946,522,77,468,816,555,194,707,97,622,99,265,590,573,132,183,969,207,90,331,88,606,315,343,546,460,826,427,232,117,125,309,433,53,148,116,437,339,288,879,52,630,201,517,341,178,94,636,759,598,278,332,192,463,325,850,200,810,686,249,226,297,915,117,56,59,760,445,184,918,173,903,212,868,88,798,829,835,563,19,480,989,529,834,515,964,876,294,778,551,457,458,150,698,956,781,310,948,50,56,98,348,254,614,654,359,632,994,701,615,64,507,668,583,687,902,564,214,930,331,212,943,559,886,590,805,426,669,141,233,573,682,931,267,117,900,944,667,838,374,406,856,987,870,716,593,596,654,653,120,666,145,490,629,172,881,808,324,956,532,475,165,503,361,208,323,568,876,663,11,839,67,499,75,643,954,94,418,761,842,213,616,785,42,707,343,513,480,531,890,899,2,30,188,32,588,480,33,849,443,666,117,13,974,453,93,960,369,332,61,17,557,818,744,124,916,454,572,451,29,711,134,481,366,327,132,819,839,485,941,224,531,688,561,958,899,315,824,408,941,517,163,878,28,767,798,227];
 var firstWireDirection = [R,U,R,D,R,U,R,U,R,D,R,D,L,U,R,D,R,D,L,D,L,U,L,U,L,D,R,U,L,U,R,D,L,D,R,D,R,D,L,D,L,U,L,U,L,U,R,U,R,D,L,U,L,D,R,D,L,U,R,D,L,D,R,D,R,D,L,U,R,D,L,D,L,D,R,D,L,U,R,U,L,D,L,U,R,U,R,D,R,U,L,U,L,D,L,D,R,D,L,U,R,U,L,D,L,U,R,U,L,U,L,U,L,U,L,D,R,D,R,D,R,U,R,U,R,D,R,D,L,D,L,U,L,U,R,D,R,D,R,U,L,D,R,D,L,D,R,D,R,D,L,D,R,U,R,U,L,U,L,D,R,D,L,D,R,D,R,D,L,D,L,D,R,D,L,U,R,U,R,D,R,U,L,D,L,D,L,U,R,D,L,U,L,D,L,U,R,D,R,D,R,D,R,U,L,U,R,D,R,D,L,D,R,D,L,U,L,U,R,U,R,D,R,D,L,D,R,U,L,U,R,D,R,D,L,D,L,D,R,D,L,D,L,D,L,D,L,D,R,U,R,U,R,U,L,U,L,D,L,U,R,D,R,D,L,U,R,D,L,U,L,D,R,D,R,D,R,U,L,U,L,U,R,U,R,U,R,U,R,D,L,U,L,D,R,D,L,U,R,D,R];
@@ -22,7 +22,13 @@ var secondWireDirection = [L,U,R,U,L,U,R,U,R,D,L,D,L,D,L,D,L,D,R,D,R,U,L,D,L,D,L
 //var firstWireDirection = [R,U,L,D];
 //var secondWireAmount = [7,6,4,4];
 //var secondWireDirection = [U,R,D,L];
+	
+//calculate Manhattan distance between central port and point
+function manhattanDistance(point) {
+	
+	return Math.abs(point.x) + Math.abs(point.y);
 
+}
 
 //determine path of first wire 
 for (i = 0; i < firstWireAmount.length; i++){
@@ -32,7 +38,7 @@ for (i = 0; i < firstWireAmount.length; i++){
 		for (d = 0; d < firstWireAmount[i]; d++){
 			
 			firstWirePos.x = firstWirePos.x + 1;
-			firstWirePath.push({x:firstWirePos.x,y:firstWirePos.y});
+			firstWirePath[firstWirePos.x + "," + firstWirePos.y] = manhattanDistance(firstWirePos);
 			
 		}
 		
@@ -43,7 +49,7 @@ for (i = 0; i < firstWireAmount.length; i++){
 		for (d = 0; d < firstWireAmount[i]; d++){
 			
 			firstWirePos.x = firstWirePos.x - 1;
-			firstWirePath.push({x:firstWirePos.x,y:firstWirePos.y});
+			firstWirePath[firstWirePos.x + "," + firstWirePos.y] = manhattanDistance(firstWirePos);
 			
 		}
 	
@@ -54,7 +60,7 @@ for (i = 0; i < firstWireAmount.length; i++){
 		for (d = 0; d < firstWireAmount[i]; d++){
 			
 			firstWirePos.y = firstWirePos.y + 1;
-			firstWirePath.push({x:firstWirePos.x,y:firstWirePos.y});
+			firstWirePath[firstWirePos.x + "," + firstWirePos.y] = manhattanDistance(firstWirePos);
 		}
 	
 	}
@@ -64,7 +70,7 @@ for (i = 0; i < firstWireAmount.length; i++){
 		for (d = 0; d < firstWireAmount[i]; d++){
 			
 			firstWirePos.y = firstWirePos.y - 1;
-			firstWirePath.push({x:firstWirePos.x,y:firstWirePos.y});
+			firstWirePath[firstWirePos.x + "," + firstWirePos.y] = manhattanDistance(firstWirePos);
 			
 		}
 	
@@ -87,7 +93,7 @@ for (i = 0; i < secondWireAmount.length; i++){
 		for (d = 0; d < secondWireAmount[i]; d++){
 			
 			secondWirePos.x = secondWirePos.x + 1;
-			secondWirePath.push({x:secondWirePos.x,y:secondWirePos.y});
+			secondWirePath[secondWirePos.x + "," + secondWirePos.y] = true;
 			
 		}
 		
@@ -98,7 +104,7 @@ for (i = 0; i < secondWireAmount.length; i++){
 		for (d = 0; d < secondWireAmount[i]; d++){
 			
 			secondWirePos.x = secondWirePos.x - 1;
-			secondWirePath.push({x:secondWirePos.x,y:secondWirePos.y});
+			secondWirePath[secondWirePos.x + "," + secondWirePos.y] = true;
 			
 		}
 	
@@ -109,7 +115,7 @@ for (i = 0; i < secondWireAmount.length; i++){
 		for (d = 0; d < secondWireAmount[i]; d++){
 			
 			secondWirePos.y = secondWirePos.y + 1;
-			secondWirePath.push({x:secondWirePos.x,y:secondWirePos.y});
+			secondWirePath[secondWirePos.x + "," + secondWirePos.y] = true;
 		}
 	
 	}
@@ -119,7 +125,7 @@ for (i = 0; i < secondWireAmount.length; i++){
 		for (d = 0; d < secondWireAmount[i]; d++){
 			
 			secondWirePos.y = secondWirePos.y - 1;
-			secondWirePath.push({x:secondWirePos.x,y:secondWirePos.y});
+			secondWirePath[secondWirePos.x + "," + secondWirePos.y] = true;
 			
 		}
 	
@@ -136,34 +142,20 @@ for (i = 0; i < secondWireAmount.length; i++){
 
 //compare [x,y] positions of first and second wire
 var crossedWires = [];
+var firstWireKeys = Object.keys(firstWirePath);
 
-for (i = 0; i < firstWirePath.length; i++){
+for (i = 0; i < firstWireKeys.length; i++){
 	
-	for (c = 0; c < secondWirePath.length; c++){
+	if (secondWirePath[firstWireKeys[i]] != undefined){
 		
-		if (firstWirePath[i].x == secondWirePath[c].x && firstWirePath[i].y == secondWirePath[c].y){
-			
-			var pointOnFirstWire = firstWirePath[i];
-			crossedWires.push({x:pointOnFirstWire.x,y:pointOnFirstWire.y});
-			
-		}
+		crossedWires.push(firstWirePath[firstWireKeys[i]]);
 	
 	}
 	
 }
 
-var manhattanDistances = new Array();
-	
-//calculate Manhattan distance between central port and intersections and determine the closest
-for (i = 0; i < crossedWires.length; i++){
-	
-	var manhattanDistance = Math.abs(crossedWires[i].x) + Math.abs(crossedWires[i].y);
-	manhattanDistances.push(manhattanDistance);
-	
-}
-
 //sort values in ascending order
-manhattanDistances.sort(function(a, b){return a-b});
+crossedWires.sort(function(a, b){return a-b});
 
 //get lower index for result
-document.getElementById("result3a").innerHTML = "The Manhattan distance from the central port to the closest intersection is " + manhattanDistances[0] + "."; 
+document.getElementById("result3a").innerHTML = "The Manhattan distance from the central port to the closest intersection is " + crossedWires[0] + "."; 
