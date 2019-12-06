@@ -140,14 +140,16 @@ for (i = 0; i < secondWireAmount.length; i++){
 	
 };
 
-//compare [x,y] positions of first and second wire
+//determine intersections
 var crossedWires = [];
-var firstWireKeys = Object.keys(firstWirePath);
+var firstWireKeys = Object.keys(firstWirePath); //push all keys from the object into an array to allow looping
 
 for (i = 0; i < firstWireKeys.length; i++){
 	
+	//compare values from first wire array to keys in second wire object, if a key exists along secondWirePath it will return true instead of undefined
 	if (secondWirePath[firstWireKeys[i]] != undefined){
 		
+		//push all matching keys in array 
 		crossedWires.push(firstWirePath[firstWireKeys[i]]);
 	
 	}
